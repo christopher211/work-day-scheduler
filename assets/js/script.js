@@ -2,8 +2,7 @@ const businessHoursArr = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 $(document).ready(function () {
   const currentDate = dayjs().format("dddd, MMMM Do, YYYY");
-  const currentHour = 12;
-  // const currentHour = dayjs().hour();
+  const currentHour = dayjs().hour();
 
   $("#currentDay").text(`${currentDate}`);
 
