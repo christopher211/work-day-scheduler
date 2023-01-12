@@ -11,9 +11,9 @@ A simple calendar application that user can save working events/plans for each h
 
 ## Links
 
-- Here is the link to access simple work day scheduler app: [Work day scheduler](https://github.com/christopher211/work-day-scheduler/)
+- Here is the link to access simple work day scheduler app: [Work day scheduler](https://christopher211.github.io/work-day-scheduler/)
 
-- The repo of the app: [Source Code](https://github.com/christopher211/work-day-scheduler.git)
+- The repo of the app: [Source Code](https://github.com/christopher211/work-day-scheduler)
 
 ## User Story
 
