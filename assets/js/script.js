@@ -18,6 +18,15 @@ $(document).ready(function () {
     }
   };
 
+  const showHideDeleteIcon = (str) => {
+    const storageKeys = Object.keys(localStorage);
+    if (storageKeys.includes(str)) {
+      return "";
+    } else {
+      return "hidden";
+    }
+  };
+
   // Create time block content element depend on business hours
   businessHoursArr.forEach((h) => {
     // Time block
@@ -35,6 +44,16 @@ $(document).ready(function () {
     $("<p/>", {
       text: `${h}:00`,
     }).appendTo(`#text-center-${h}`);
+
+    // Create delete icon
+    $("<i/>", {
+      class: `delete-icon fas fa-trash ${showHideDeleteIcon(`hour-${h}`)}`,
+      click: () => {
+        clearSpecificWorkPlan(`hour-${h}`);
+      },
+    })
+      .attr("aria-hidden", "true")
+      .appendTo(`#text-center-${h}`);
 
     // Create textarea
     $("<textarea/>", {
@@ -81,8 +100,15 @@ $(document).ready(function () {
       const id = timeBlock.attr("id");
       // Get the value of the description input field
       const description = timeBlock.find(".description").val();
+      console.log(description.length);
+      if (description.length === 0 || description === "") {
+        alert("There is no data to save!");
+        return;
+      }
       // Save the description in local storage with key is id
       localStorage.setItem(id, JSON.stringify(description));
+      // Show delete icon after add data
+      $(`#${id} .text-center .delete-icon`).removeClass("hidden");
     });
   };
 
@@ -95,6 +121,20 @@ $(document).ready(function () {
         $(this).find(".description").val(JSON.parse(data));
       }
     });
+  };
+
+  const clearSpecificWorkPlan = (key) => {
+    // Show a browser alert to confirm user action
+    const confirm = window.confirm("Are you sure to clear this data?");
+
+    if (confirm) {
+      // Clear local storage by key
+      localStorage.removeItem(key);
+      // Clear text in textarea description
+      $(`#${key} .description`).val("");
+      // Hide delete icon
+      $(`#${key} .text-center .delete-icon`).addClass("hidden");
+    }
   };
 
   // Clear all the work plan in local storage
@@ -113,6 +153,8 @@ $(document).ready(function () {
       localStorage.clear();
       // Clear text in textarea description
       $(".time-block .description").val("");
+      // Hide delete icon
+      $(`.time-block .text-center .delete-icon`).addClass("hidden");
     }
   };
 
